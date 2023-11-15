@@ -1,0 +1,48 @@
+import requests
+import json
+import time
+
+
+
+url = input("Enter your url: ")
+api_token = input("Enter your api_token: ")
+
+
+def send_request(url, method="GET", params=None, data=None, headers=None):
+    # Define custom headers
+    default_headers = {
+        'Authorization': f'APIToken {api_token}',
+        'Content-Type': 'application/json'
+    }
+
+    # Define the HTTP method and send the request
+    response = requests.request(method, url, params=params, data=data, headers=default_headers)
+
+
+    # Check if the response status code is OK (200)
+    if response.status_code == 200:
+        # Parse the response content as JSON
+        json_data = response.json()
+        return json_data
+
+    else:
+        print("Request failed with status code:", response.status_code)
+
+
+
+xc_objects=send_request(url, method="GET")
+
+# Extract all 'name' values from the 'items' list
+xc_objects_names = [item['name'] for item in xc_objects.get('items', [])]
+
+# Print or work with the array
+print("Name Values:", xc_objects_names)
+
+
+
+
+for xc_object_name in xc_objects_names:
+    xc_object=send_request(f"{url}/{xc_object_name}", method="GET")
+    print(xc_object)
+    time.sleep(1)
+
