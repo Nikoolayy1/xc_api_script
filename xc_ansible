@@ -1,0 +1,43 @@
+---
+
+- name: XC Playbook
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  vars:
+   url: xxxx
+   api_token: xxxxx
+
+  tasks:
+
+
+  - name: XC Get XC Objects
+    ansible.builtin.uri:
+     url: "{{ url }}"
+     method: GET
+     body_format: json
+     status_code: [200, 202]
+     return_content: true
+     headers:
+       Content-Type: application/json
+       Authorization: "APIToken {{ api_token }}"
+    register: xc
+
+
+  - name: XC Get XC Object Config
+    ansible.builtin.uri:
+     url: "{{ url }}/{{ item }}"
+     method: GET
+     body_format: json
+     status_code: [200, 202]
+     return_content: true
+     headers:
+       Content-Type: application/json
+       Authorization: "APIToken {{ api_token }}"
+    loop: "{{ xc.json | json_query('items[*].name') }}"
+    register: object
+    ignore_errors: true
+
+
+  - debug: msg="XC object - {{item}}"
+    loop: "{{object.results}}"
