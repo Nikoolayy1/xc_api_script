@@ -1,6 +1,6 @@
 ---
 
-- name: Get Virtual IP health statistics - F5 ServiceCenter
+- name: XC Playbook
   hosts: localhost
   gather_facts: false
   connection: local
@@ -11,7 +11,7 @@
   tasks:
 
 
-  - name: XC Get service policies
+  - name: XC Get XC Objects
     ansible.builtin.uri:
      url: "{{ url }}"
      method: GET
@@ -24,7 +24,7 @@
     register: xc
 
 
-  - name: XC Get service policies
+  - name: XC Get XC Object Config
     ansible.builtin.uri:
      url: "{{ url }}/{{ item }}"
      method: GET
@@ -39,6 +39,6 @@
     ignore_errors: true
 
 
-  - debug: msg="Service Policy - {{item}}"
+  - debug: msg="XC object - {{item}}"
     loop: "{{object.results}}"
 
