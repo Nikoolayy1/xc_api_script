@@ -5,8 +5,8 @@
   gather_facts: false
   connection: local
   vars:
-   url: https://acmecorp.console.ves.volterra.io/api/config/namespaces/default/service_policys
-   api_token: 8l1Cw+2Il5kYgwdCa3oJh76XwN8=
+   url: 
+   api_token: 
 
   tasks:
 
