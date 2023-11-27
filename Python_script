@@ -1,11 +1,17 @@
 import requests
 import json
 import time
-
+import sys
+from getpass import getpass
 
 
 url = input("Enter your url: ")
-api_token = input("Enter your api_token: ")
+#api_token = input("Enter your api_token: ")
+api_token = getpass("Enter your api_token: ")
+
+
+#url = sys.argv[1]
+#api_token = sys.argv[2]
 
 
 def send_request(url, method="GET", params=None, data=None, headers=None):
@@ -45,4 +51,6 @@ for xc_object_name in xc_objects_names:
     xc_object=send_request(f"{url}/{xc_object_name}", method="GET")
     print(xc_object)
     time.sleep(1)
+
+
 
