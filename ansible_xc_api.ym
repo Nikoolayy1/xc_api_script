@@ -5,8 +5,8 @@
   gather_facts: false
   connection: local
   vars:
-   url: 
-   api_token: 
+   url: xxxx
+   api_token: xxxxx
 
   tasks:
 
